@@ -1,7 +1,10 @@
-export const convertToMemberFormat = (members) =>
-    members >= 1000
+export const convertToMemberFormat = (members) => {
+    if(!members) members = 0;
+
+    return  members >= 1000
         ? `${Math.floor(members / 1000)}K Members`
         : `${members} Members`;
+}
 
 export const isMobileTablet = () => {
     let check = false;

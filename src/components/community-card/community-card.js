@@ -7,7 +7,7 @@ const CommunityCard = ({ cardDetails }) => {
     <div className="community-card pointer">
       <div
         className="card-image"
-        style={{ background: "url(" + cardDetails.image + ") center top" }}
+        style={{ background: `url(${cardDetails.image}) center top` }}
       ></div>
       <div>
         <p className="card-title">{cardDetails.title}</p>

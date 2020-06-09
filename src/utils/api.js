@@ -10,14 +10,18 @@ class Api {
   }
 
   static async xhr({ route, params, body, method, isFormtype }) {
-    const options = { method };
+    try {
+        const options = { method };
 
-    options.headers = Api.headers;
-    if (body) {
-      options.body = JSON.stringify(body);
+        options.headers = Api.headers;
+        if (body) {
+            options.body = JSON.stringify(body);
+        }
+        const response = await fetch(route, options);
+        return response.json();
+    } catch (error) {
+      console.log(error);
     }
-    const response = await fetch(route, options);
-    return response.json();
   }
 }
 

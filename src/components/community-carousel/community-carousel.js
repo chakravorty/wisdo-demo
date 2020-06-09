@@ -32,7 +32,7 @@ const CommunityCarousel = ({ feedData }) => {
   const isMobile = isMobileTablet();
 
   return (
-    <div>
+    <>
       {feedData.map((feed) => (
         <div key={feed.categoryName}>
           <div className="category-title">
@@ -41,7 +41,7 @@ const CommunityCarousel = ({ feedData }) => {
 
           <div className="community-carousel">
             <Carousel
-              arrows={(feed.items.length && feed.items.length > 4) || isMobile}
+              arrows={(feed.items?.length > 4) || isMobile}
               responsive={responsive}
             >
               {feed.items.map((community) => (
@@ -51,7 +51,7 @@ const CommunityCarousel = ({ feedData }) => {
           </div>
         </div>
       ))}
-    </div>
+    </>
   );
 };
 
