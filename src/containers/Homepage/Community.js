@@ -12,8 +12,12 @@ const Community = () => {
   }, []);
 
   const getFeed = async () => {
-    const response = await Api.get(API.GET_FEED);
-    response && setFeedData(response);
+    try {
+        const response = await Api.get(API.GET_FEED);
+        response && setFeedData(response);
+    } catch (e) {
+      console.log(e);
+    }
   };
   
   return (

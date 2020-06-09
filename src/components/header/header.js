@@ -1,5 +1,5 @@
 import React from "react";
-import "./style.css";
+import "./header.css";
 import { strings, links } from "../../constants/strings";
 import { WISDO_LOGO } from "../../constants/images";
 import { Hamburger } from "./Hamburger";

@@ -1,5 +1,5 @@
 import React from "react";
-import "./style.css";
+import "./header.css";
 import { strings } from "../../constants/strings";
 import { WISDO_LOGO } from "../../constants/images";
 import { Link } from "react-router-dom";

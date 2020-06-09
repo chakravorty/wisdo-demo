@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Loader } from "../../components/loader/Loader";
+import { Loader } from "../../components/loader/loader";
 import LoginBanner from "../../components/banner/LoginBanner";
-import Header from "../../components/header/Header";
+import Header from "../../components/header/header";
 import Sidebar from "../../components/sidebar/sidebar";
 
 const sidemenu = [

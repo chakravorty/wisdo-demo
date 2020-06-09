@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import "./style.css"
+import "./header.css"
 import { HamburgerMenu } from "./HamburgerMenu"
 
 export function Hamburger(props) {
