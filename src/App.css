@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans' !important;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+a {
+    color: black;
+}
+
+.App {
+    height: 100vh;
+}
+.main {
+    width: 75%;
+    height: 100%;
+    float: right;
+    padding-top: 100px;
+    padding-bottom: 80px;
+    min-height: 768px;
+    background: #f8f7f7;
+    padding-left: 60px;
+}
+
+@media (max-width: 768px) {
+    .main {
+        width: 100%;
+        float: unset;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    .main {
+        padding-bottom: 180px;
+    }
+}

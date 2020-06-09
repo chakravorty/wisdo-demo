@@ -1,0 +1,90 @@
+version: 2
+references:
+  deploy: &deploy
+    docker:
+      - image: circleci/node:12.9.1-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Install
+          command: NODE_ENV= npm install
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: Build
+          command: |
+            CI=false npm run build
+      - run:
+          name: Deploy
+          command: npm run deploy-client:ci
+      - add_ssh_keys:
+          fingerprints:
+            - "68:df:2a:ab:bf:4b:88:dd:36:45:0b:e2:30:d1:85:d4"
+      - run:
+          name: Add tag
+          command: |
+            git config user.email "dev+circleci@wisdo.com"
+            git config user.name "circleci"
+            NEW_TAG="${NODE_ENV}_$(date +%Y-%m-%d__%H-%M)"
+            git tag -a $NEW_TAG -m $NEW_TAG
+            git push origin $NEW_TAG --no-verify
+jobs:
+  test:
+    docker:
+      - image: circleci/node:12.9.1-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Install
+          command: NODE_ENV= npm install
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: Test
+          command: npm test
+      - store_test_results:
+          path: ~/junit
+      - store_artifacts:
+          path: /home/circleci/.npm/_logs
+  deploy-to-dev1:
+    <<: *deploy
+  deploy-to-staging:
+    <<: *deploy
+  deploy-to-production:
+    <<: *deploy
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - deploy-to-dev1:
+          context: "Payment Website Dev1"
+          filters:
+            tags:
+              only: /dev1/
+            branches:
+              ignore: /.*/
+      - deploy-to-staging:
+          context: "Payment Website Staging"
+          filters:
+            tags:
+              only: /RC/
+            branches:
+              only: /master/
+      - deploy-to-production:
+          context: "Payment Website Production"
+          filters:
+            tags:
+              only: /production/
+            branches:
+              ignore: /.*/
